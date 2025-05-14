@@ -35,20 +35,15 @@ chromosome.  You may want to use a less stringent --hwe p-value threshold for X
 chromosome variants.
 So i can either split them up either into autosome and sex-chromsome, then applying the HWE on the autosome, and a less stringent sex-chromosome. Or maybe just dont apply a HWE Removal on the sex-chromsomes at all. Afterwards i would then merge it.
 
-I split into autosome
+I split into autosome.
 
 ```
-plink --bfile split_chip \
-      --autosome \
-      --make-bed \
-      --out split_chip_autosomes
+plink --bfile HTS_iSelect_HD_sexflt --autosome --make-bed --out HTS_iSelect_HD_sexflt_auto
+
 ```
-and x-chromosome.
+and X-chromosome.
 ```
-plink --bfile split_chip \
-      --chr X \
-      --make-bed \
-      --out split_chip_chrX
+plink --bfile HTS_iSelect_HD_sexflt --chr X --make-bed --out HTS_iSelect_HD_sexflt_chrX
 ```
 
 ### MAF
