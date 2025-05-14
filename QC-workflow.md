@@ -73,11 +73,9 @@ plink --bfile HTS_iSelect_HD_filtered --mind 0.03 --make-bed --out HTS_iSelect_H
 
 # Stratification an PCA's
 
-### Sex check
-
 # Litterature
 [Plink, v1.9](https://www.cog-genomics.org/plink/1.9/)
-https://pmc.ncbi.nlm.nih.gov/articles/PMC3066182/
-https://pmc.ncbi.nlm.nih.gov/articles/PMC3025522/
+[PMC3066182](https://pmc.ncbi.nlm.nih.gov/articles/PMC3066182/)
+[PMC3025522](https://pmc.ncbi.nlm.nih.gov/articles/PMC3025522/)
 
 
