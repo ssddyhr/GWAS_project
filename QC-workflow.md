@@ -27,12 +27,16 @@ PLINK removes all SNPs where more than 5% of individuals are missing a genotype 
  plink --bfile OmniExpress_subset --geno 0.05 --make-bed --out OmniExpress_geno
 
 ```
-### identification of SNPs demonstrating a significant deviation from Hardy-Weinberg equilibrium (HWE)
-
+### identification of SNPs demonstrating a significant deviation from Hardy-Weinberg equilibrium (HWE) and removal. 
 
 ```
 plink --bfile HTS_iSelect_HD_geno --hwe 1e-5 --make-bed --out HTS_iSelect_HD_HWE
 ```
+
+Warning: --hwe observation counts vary by more than 10%, due to the X
+chromosome.  You may want to use a less stringent --hwe p-value threshold for X
+chromosome variants.
+So i can either split them up either into autosome and sex-chromsome, then applying the HWE on the autosome, and a less stringent sex-chromosome. Or maybe just dont apply a HWE Removal on the sex-chromsomes at all. Afterwards i would then merge it
 
 ### MAF
 
