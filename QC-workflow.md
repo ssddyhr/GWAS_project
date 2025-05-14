@@ -61,6 +61,10 @@ plink --bfile OmniExpress_sexflt --geno 0.05 --maf 0.01 --make-bed --out OmniExp
 
 ### Sample call rate (missingness)
 
+```
+plink --bfile HTS_iSelect_HD_filtered --mind 0.03 --make-bed --out HTS_iSelect_HD_filtered
+```
+
 ### Heterozygosity (HE)
 
 ### Relatednesss
