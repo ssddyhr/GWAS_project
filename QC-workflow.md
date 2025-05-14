@@ -4,18 +4,19 @@ Splitting up chips
 First in the filtering process we subset out data based on the chips, making b-files based on our original data for each. We made a R-script that splits our metadata.txt into 5 different cohorts based on the chips used, with a separate file for no chip. And then using the command
 
 ## sex check
+
 First i do a sexcheck.
 ```
-plink --bfile  --check-sex 0.2 0.8 --out nochip_
+plink --bfile OmniExpress_subset  --check-sex 0.2 0.8 --out OmniExpress_subset
 ```
-Then i filter and remove..
+Then i filter and remove.
+
 ```
-grep -v "OK" nochip_imputation.sexcheck > nochib_wrongsex.txt
+grep -v "OK" HTS_iSelect_HD_sex.sexcheck > HTS_wrongsex.txt
 ```
 ```
 plink --bfile nochip_imputation --remove nochib_wrongsex.txt --make-bed --out nochip_imputation_flt.
 ```
-
 ## Pr SNP QC
 ```
 plink --bfile gwas_data --keep HTS_iSelect_HD.txt --make-bed --out HTS_iSelect_HD_subset.
