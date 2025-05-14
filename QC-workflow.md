@@ -6,7 +6,7 @@ First in the filtering process we subset out data based on the chips, making b-f
 ## sex check
 First i do a sexcheck.
 ```
-plink --bfile nochip_imputation --check-sex 0.2 0.8 --out nochip_imputation
+plink --bfile  --check-sex 0.2 0.8 --out nochip_
 ```
 Then i filter and remove..
 ```
