@@ -12,7 +12,7 @@ PLINK removes all SNPs where more than 5% of individuals are missing a genotype 
  plink --bfile OmniExpress_subset --geno 0.05 --make-bed --out OmniExpress_geno
 
 ```
-### HWE
+### identification of SNPs demonstrating a significant deviation from Hardy-Weinberg equilibrium (HWE)
 
 ### MAF
 
@@ -22,5 +22,6 @@ PLINK removes all SNPs where more than 5% of individuals are missing a genotype 
 # Litterature
 [Plink, v1.9](https://www.cog-genomics.org/plink/1.9/)
 https://pmc.ncbi.nlm.nih.gov/articles/PMC3066182/
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3025522/
 
 
