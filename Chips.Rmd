@@ -1,0 +1,47 @@
+---
+title: "Chips"
+output: html_document
+date: "2025-05-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We first split up the data in the metadeta.txt, and then make bfiles for each, afterwards
+
+
+```{r}
+
+library('tidyverse')
+metadata <- read.table("metadata.txt", header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+print(metadata)
+
+valid_chips <- c("HTS iSelect HD", "Illumina GSAs", "OmniExpress", "OmniExpress plus")
+metadata$chip <- trimws(metadata$chip)  # Removes leading/trailing spaces
+metadata$chip_group <- ifelse(metadata$chip %in% valid_chips, metadata$chip, "nochip")
+print(table(metadata$chip_group))
+
+# Loop through each unique chip group
+for (group in unique(metadata$chip_group)) {
+  
+  # Subset data for this chip group
+  group_data <- subset(metadata, chip_group == group)
+  
+  # Create .keep file name
+  filename <- paste0(gsub(" ", "_", group), ".txt")
+  
+  # Write user as FID and IID
+  write.table(
+    data.frame(FID = group_data$user, IID = group_data$user),
+    file = filename,
+    sep = "\t",
+    quote = FALSE,
+    row.names = FALSE,
+    col.names = FALSE
+  )
+}
+
+
+```
+
