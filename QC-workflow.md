@@ -53,6 +53,10 @@ plink --bfile HTS_iSelect_HD_sexflt --chr X --make-bed --out HTS_iSelect_HD_sexf
 ```
 
 ### MAF
+The final step when conducting QC is to remove all SNPs with a very low MAF. Typically a MAF threshold of 1-2% is applied.
+```
+plink --bfile OmniExpress_sexflt --geno 0.05 --maf 0.01 --make-bed --out OmniExpress_MAF
+```
 
 ## Per Individual QC
 ### Sex check
