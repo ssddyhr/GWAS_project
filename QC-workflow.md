@@ -16,3 +16,5 @@ plink --bfile HTS_iSelect_HD_sexflt --geno 0.05 --make-bed --out HTS_iSelect_HD_
 
 ## Per Individual QC
 
+# Litterature
+https://www.cog-genomics.org/plink/1.9/
