@@ -15,7 +15,7 @@ Then i filter and remove.
 grep -v "OK" HTS_iSelect_HD_sex.sexcheck > HTS_wrongsex.txt
 ```
 ```
-plink --bfile nochip_imputation --remove nochib_wrongsex.txt --make-bed --out nochip_imputation_flt.
+plink --bfile nochip_subset --remove nochib_wrongsex.txt --make-bed --out nochip_sexflt
 ```
 ## Pr SNP QC
 ```
