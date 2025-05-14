@@ -23,10 +23,7 @@ plink --bfile gwas_data --keep HTS_iSelect_HD.txt --make-bed --out HTS_iSelect_H
 ```
 ### Genotyping efficiency / call rate (missingness)
 PLINK removes all SNPs where more than 5% of individuals are missing a genotype for that SNP. Because the missingness was inflated (0.5 ‘ish), because we had a combined b-file to begin with, and when i tried to filter by missing individuals, it was way too high and would remove all the individuals. So this way I don't remove too many individuals. Even though the literature says to do it by individual first, and the remove individual SNP’s. Now i can use the --mind flag to remove by individual. I do this though the flag --geno.
-```
- plink --bfile OmniExpress_subset --geno 0.05 --make-bed --out OmniExpress_geno
 
-```
 ### identification of SNPs demonstrating a significant deviation from Hardy-Weinberg equilibrium (HWE) and removal. 
 
 ```
@@ -36,7 +33,23 @@ plink --bfile HTS_iSelect_HD_geno --hwe 1e-5 --make-bed --out HTS_iSelect_HD_HWE
 Warning: --hwe observation counts vary by more than 10%, due to the X
 chromosome.  You may want to use a less stringent --hwe p-value threshold for X
 chromosome variants.
-So i can either split them up either into autosome and sex-chromsome, then applying the HWE on the autosome, and a less stringent sex-chromosome. Or maybe just dont apply a HWE Removal on the sex-chromsomes at all. Afterwards i would then merge it
+So i can either split them up either into autosome and sex-chromsome, then applying the HWE on the autosome, and a less stringent sex-chromosome. Or maybe just dont apply a HWE Removal on the sex-chromsomes at all. Afterwards i would then merge it.
+
+I split into autosome
+
+```
+plink --bfile split_chip \
+      --autosome \
+      --make-bed \
+      --out split_chip_autosomes
+```
+and x-chromosome.
+```
+plink --bfile split_chip \
+      --chr X \
+      --make-bed \
+      --out split_chip_chrX
+```
 
 ### MAF
 
