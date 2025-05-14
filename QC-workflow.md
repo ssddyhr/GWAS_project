@@ -15,6 +15,7 @@ plink --bfile HTS_iSelect_HD_sexflt --geno 0.05 --make-bed --out HTS_iSelect_HD_
 ### MAF
 
 ## Per Individual QC
+# Sex check
 
 # Litterature
 https://www.cog-genomics.org/plink/1.9/
