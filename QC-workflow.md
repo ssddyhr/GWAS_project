@@ -1,4 +1,4 @@
-# GWAS-workflow
+# QC
 ## Splitting up individual chips
 Splitting up chips
 First in the filtering process we subset out data based on the chips, making b-files based on our original data for each. We made a R-script that splits our metadata.txt into 5 different cohorts based on the chips used, with a separate file for no chip. And then using the command
@@ -104,10 +104,26 @@ Use R to make these new
 plink --bfile GWA-data_sflt_mflt_hflt --remove wrong_ibd.txt --make-bed --out GWA-data_sflt_mflt_hflt_iflt
 ```
 
-
-
 # Stratification an PCA's
 
+```
+plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/merged_all_chips_qc --pca --out merged_all_chips_qc
+```
+
+# Assosiation study
+
+```
+plink --bfile your_merged_qc_data \
+       --pheno height.txt \
+       --linear \
+       --covar chip_info.txt \
+       --covar-name Chip \
+       --dummy-coding \
+       --covar pca_results.eigenvec \
+       --covar-name PC1,PC2,PC3 \
+       --out height_association_by_chip_pc
+```
+"
 # Litterature
 [Plink, v1.9](https://www.cog-genomics.org/plink/1.9/)
 [PMC3066182](https://pmc.ncbi.nlm.nih.gov/articles/PMC3066182/)
