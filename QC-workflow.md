@@ -59,6 +59,10 @@ The final step when conducting QC is to remove all SNPs with a very low MAF. Typ
 ```
 plink --bfile OmniExpress_sexflt --geno 0.05 --maf 0.01 --make-bed --out OmniExpress_MAF
 ```
+Or in one command.
+```
+plink --bfile GWA-QC --exclude fail-diffmiss-qc.txt --geno 0.05 --hwe 0.00001 --maf 0.01 --make-bed --out GWA-QC
+```
 ## Per Individual QC
 
 ### Sample call rate (missingness)
@@ -74,7 +78,7 @@ plink --bfile GWA-QC --missing --out GWA-QC
 Creates GWA-QC.imiss and GWA-QC.lmiss. The fourth column in the file GWA-data.imiss (N_MISS) is the number of missing SNPs and  (F_MISS) is the proportion of missing SNPs per individual.
 
 ```
-plink --bfile GWA-QC --het --out GWA-QC 
+plink --bfile GWA-QC --het --out GWA-QC
 ```
 This command will create the file GWA-data.het, in which the third column denotes the observed number of homozygous genotypes [O(Hom)] and the fifth column denotes the number of non-missing genotypes [N(NM)] per individual.
 From that i can calculate the observed heterozygosity rate per individual, and then set a threshhold rate that is more than 3 s.d. from the mean, and saving them to a txt, using R. Then i remove the remaining individuals.
@@ -84,7 +88,13 @@ plink --bfile GWA-QC --remove wrong_het_missing_values.txt --make-bed --out GWA-
 
 ```
 
-### Relatednesss
+### Relatednesss (Identification of duplicated or related individuals)
+
+To identify duplicated or related individuals we will calculate the identity by descent (IBD) matrix. This works best if it is done on a set of non-correlated SNPs. So first we will “prune” the data and create a list of SNPs where no pair (within a given genomic interval) has an r2 value greater than a given threshold, typically chosen to be 0.2. This can be done by the indep-pairwise command, using 500kb as window size and 5 variants as step size:
+
+```
+plink --bfile GWA-QC --indep-pairwise 500kb 5 0.2 --out GWA-QC
+```
 
 # Stratification an PCA's
 
