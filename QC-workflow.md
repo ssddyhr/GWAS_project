@@ -77,6 +77,12 @@ Creates GWA-QC.imiss and GWA-QC.lmiss. The fourth column in the file GWA-data.im
 plink --bfile GWA-QC --het --out GWA-QC 
 ```
 This command will create the file GWA-data.het, in which the third column denotes the observed number of homozygous genotypes [O(Hom)] and the fifth column denotes the number of non-missing genotypes [N(NM)] per individual.
+From that i can calculate the observed heterozygosity rate per individual, and then set a threshhold rate that is more than 3 s.d. from the mean, and saving them to a txt, using R. Then i remove the remaining individuals.
+
+```
+plink --bfile GWA-QC --remove wrong_het_missing_values.txt --make-bed --out GWA-QC
+
+```
 
 ### Relatednesss
 
