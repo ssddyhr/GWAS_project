@@ -94,7 +94,17 @@ To identify duplicated or related individuals we will calculate the identity by 
 
 ```
 plink --bfile GWA-QC --indep-pairwise 500kb 5 0.2 --out GWA-QC
+
+plink --bfile GWA-data_sflt_mflt_hflt --extract GWA-data_sflt_mflt_hflt.prune.in --genome --min 0.185 --out GWA-data_sflt_mflt_hflt
+ls -lht
 ```
+Use R to make these new 
+```
+
+plink --bfile GWA-data_sflt_mflt_hflt --remove wrong_ibd.txt --make-bed --out GWA-data_sflt_mflt_hflt_iflt
+```
+
+
 
 # Stratification an PCA's
 
