@@ -68,6 +68,15 @@ plink --bfile HTS_iSelect_HD_filtered --mind 0.03 --make-bed --out HTS_iSelect_H
 ```
 
 ### Heterozygosity (HE)
+```
+plink --bfile GWA-QC --missing --out GWA-QC
+```
+Creates GWA-QC.imiss and GWA-QC.lmiss. The fourth column in the file GWA-data.imiss (N_MISS) is the number of missing SNPs and  (F_MISS) is the proportion of missing SNPs per individual.
+
+```
+plink --bfile GWA-QC --het --out GWA-QC 
+```
+This command will create the file GWA-data.het, in which the third column denotes the observed number of homozygous genotypes [O(Hom)] and the fifth column denotes the number of non-missing genotypes [N(NM)] per individual.
 
 ### Relatednesss
 
