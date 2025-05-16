@@ -114,12 +114,13 @@ plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/me
 
 ```
 plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/merged_all_chips_qc \
-        --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project/GWAS/height.txt \
-        --linear \
-        --covar all_covariates.txt \
-        --covar-name chip,SEX,PC1,PC2,PC3 \
-        --dummy-coding \
-        --out height_association_by_chip_pc_gender
+    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project/GWAS/height.txt \
+    --linear \
+    --pheno-name 2 \
+    --covar all_covariates.txt \
+    --covar-name chip,SEX,PC1,PC2,PC3 \
+    --dummy-coding \
+    --out height_association_by_chip_pc_gender
 ```
 "
 # Litterature
