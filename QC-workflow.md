@@ -113,7 +113,7 @@ plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/me
 # Assosiation study
 
 ```
-plink --bfile merged_all_chips_qc \
+plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/merged_all_chips_qc \
         --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project/height.txt \
         --linear \
         --covar all_covariates.txt \
