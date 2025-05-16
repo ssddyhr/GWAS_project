@@ -114,9 +114,9 @@ plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/me
 
 ```
 plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/merged_all_chips_qc \
-    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project/GWAS/height.txt \
+    --pheno formatted_height.txt \
     --linear \
-    --pheno-name 2 \
+    --pheno-name 3 \
     --covar all_covariates.txt \
     --covar-name chip,SEX,PC1,PC2,PC3 \
     --dummy-coding \
