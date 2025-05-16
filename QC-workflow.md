@@ -113,15 +113,13 @@ plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/me
 # Assosiation study
 
 ```
-plink --bfile your_merged_qc_data \
-       --pheno height.txt \
-       --linear \
-       --covar chip_info.txt \
-       --covar-name Chip \
-       --dummy-coding \
-       --covar pca_results.eigenvec \
-       --covar-name PC1,PC2,PC3 \
-       --out height_association_by_chip_pc
+plink --bfile merged_all_chips_qc \
+        --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project/height.txt \
+        --linear \
+        --covar all_covariates.txt \
+        --covar-name chip,SEX,PC1,PC2,PC3 \
+        --dummy-coding \
+        --out height_association_by_chip_pc_gender
 ```
 "
 # Litterature
