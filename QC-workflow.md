@@ -5,7 +5,28 @@ First in the filtering process we subset out data based on the chips, making b-f
 ```
 plink --bfile gwas_data --keep HTS_iSelect_HD.txt --make-bed --out HTS_iSelect_HD_subset.
 ```
-I only keep the ones from my phenotype.
+I've chosen to only analyse the ones with the height phenotype from my phenotype. It contains 1106 individuals.
+
+People left: 
+275 people remaining HTS
+
+128 people remaining for Illumina
+
+399 people (180 males, 183 females, 36 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to nochip_height.nosex .
+232 remaining
+
+291 people (105 males, 121 females, 65 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to OmniExpress_height.nosex .
+170 phenotype values present after --pheno.
+--keep: 170 people remaining.
+
+omni express plus
+484 people (304 males, 180 females) loaded from .fam.
+266 phenotype values present after --pheno.
+--keep: 266 people remaining.
+
+
 ```
 plink --bfile OmniExpress --keep keep.txt --pheno pheno.txt --make-bed --out filtered_data
 ```
