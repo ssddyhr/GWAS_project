@@ -33,6 +33,10 @@ plink --bfile OmniExpress_plus --keep keep.txt --pheno height_adjusted.txt --mak
 
 ## Sex check
 
+```
+plink --bfile OmniExpress_plus_height --impute-sex --make-bed --out OmniExpress_plus_imputed
+```
+
 First i do a sexcheck.
 ```
 plink --bfile OmniExpress_subset  --check-sex 0.2 0.8 --out OmniExpress_subset
