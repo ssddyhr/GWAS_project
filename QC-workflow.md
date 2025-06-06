@@ -37,7 +37,7 @@ First i do a sexcheck.
 ```
 plink --bfile OmniExpress_subset  --check-sex 0.2 0.8 --out OmniExpress_subset
 ```
-Then i filter and remove.
+Then i filter and remove. The subset with no assigned chip, removed many of the SNPs, which makes sense, since the might in reality be from different SNPs. so the best option might just be to remove them.
 
 ```
 grep -v "OK" HTS_iSelect_HD_sex.sexcheck > HTS_wrongsex.txt
