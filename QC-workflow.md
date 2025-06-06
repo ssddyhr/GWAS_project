@@ -5,6 +5,11 @@ First in the filtering process we subset out data based on the chips, making b-f
 ```
 plink --bfile gwas_data --keep HTS_iSelect_HD.txt --make-bed --out HTS_iSelect_HD_subset.
 ```
+I only keep the ones from my phenotype.
+```
+plink --bfile OmniExpress --keep keep.txt --pheno pheno.txt --make-bed --out filtered_data
+```
+
 ## Sex check
 
 First i do a sexcheck.
