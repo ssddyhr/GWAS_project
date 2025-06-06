@@ -26,9 +26,9 @@ omni express plus
 266 phenotype values present after --pheno.
 --keep: 266 people remaining.
 
-
+Using the command.
 ```
-plink --bfile OmniExpress --keep keep.txt --pheno pheno.txt --make-bed --out filtered_data
+plink --bfile OmniExpress_plus --keep keep.txt --pheno height_adjusted.txt --make-bed --out OmniExpress_plus_height
 ```
 
 ## Sex check
