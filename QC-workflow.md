@@ -43,8 +43,7 @@ First i do a sexcheck.
 ```
 plink --bfile OmniExpress_subset  --check-sex 0.2 0.8 --out OmniExpress_subset
 ```
-Then i filter and remove. The subset with no assigned chip, removed many of the SNPs, which makes sense, since the might in reality be from different SNPs. so the best option might just be to remove them.
-
+Then i filter and remove. 
 ```
 grep -v "OK" HTS_iSelect_HD_sex.sexcheck > HTS_wrongsex.txt
 ```
@@ -58,7 +57,7 @@ plink --bfile gwas_data --keep HTS_iSelect_HD.txt --make-bed --out HTS_iSelect_H
 ## Pr SNP QC
 
 ### Genotyping efficiency / call rate (missingness)
-PLINK removes all SNPs where more than 5% of individuals are missing a genotype for that SNP. Because the missingness was inflated (0.5 ‘ish), because we had a combined b-file to begin with, and when i tried to filter by missing individuals, it was way too high and would remove all the individuals. So this way I don't remove too many individuals. Even though the literature says to do it by individual first, and the remove individual SNP’s. Now i can use the --mind flag to remove by individual. I do this though the flag --geno.
+PLINK removes all SNPs where more than 5% of individuals are missing a genotype for that SNP. Because the missingness was inflated (0.5 ‘ish), because we had a combined b-file to begin with, and when i tried to filter by missing individuals, it was way too high and would remove all the individuals. So this way I don't remove too many individuals. Even though the literature says to do it by individual first, and the remove individual SNP’s. Now i can use the --mind flag to remove by individual. I do this though the flag --geno. The subset with no assigned chip, removed many of the SNPs, which makes sense, since the might in reality be from different SNPs. so the best option might just be to remove them.
 
 ```
 plink --bfile HTS_iSelect_HD_sexflt --geno 0.05 --make-bed --out HTS_iSelect_HD_sexflt_geno
