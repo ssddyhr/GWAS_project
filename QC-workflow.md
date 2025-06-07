@@ -50,9 +50,6 @@ grep -v "OK" HTS_iSelect_HD_sex.sexcheck > HTS_wrongsex.txt
 ```
 plink --bfile nochip_subset --remove nochib_wrongsex.txt --make-bed --out nochip_sexflt
 ```
-```
-plink --bfile gwas_data --keep HTS_iSelect_HD.txt --make-bed --out HTS_iSelect_HD_subset.
-```
 
 ## Pr SNP QC
 
