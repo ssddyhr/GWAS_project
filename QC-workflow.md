@@ -33,6 +33,8 @@ plink --bfile OmniExpress_plus --keep keep.txt --pheno height_adjusted.txt --mak
 
 ## Sex check
 
+Imputing sex resulted in a lot of problematic indivuals, where it could'nt find infer the sex.
+
 ```
 plink --bfile OmniExpress_plus_height --impute-sex --make-bed --out OmniExpress_plus_imputed
 ```
