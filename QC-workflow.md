@@ -89,7 +89,7 @@ plink --bfile OmniExpress_sexflt --geno 0.05 --maf 0.01 --make-bed --out OmniExp
 ```
 Or in one command.
 ```
-plink --bfile GWA-QC --exclude fail-diffmiss-qc.txt --geno 0.05 --hwe 0.00001 --maf 0.01 --make-bed --out GWA-QC
+plink --bfile OmniExpress_sexflt --geno 0.05 --hwe 0.00001 --maf 0.01 --make-bed --out OmniExpress_sexflt
 ```
 ## Per Individual QC
 
