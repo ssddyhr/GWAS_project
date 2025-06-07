@@ -33,7 +33,7 @@ plink --bfile OmniExpress_plus --keep keep.txt --pheno height_adjusted.txt --mak
 
 ## Sex check
 
-Imputing sex resulted in a lot of problematic indivuals, where it could'nt find infer the sex. So i decided not to do it, and instead be move conservative and remove problematic individuals using sexcheck.
+Imputing sex did not work, as it did not infer any problematic individuals. It's best to be more conservative, so remove individuals with problematic sex instead.
 
 ```
 plink --bfile OmniExpress_plus_height --impute-sex --make-bed --out OmniExpress_plus_imputed
