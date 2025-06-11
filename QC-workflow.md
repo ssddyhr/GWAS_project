@@ -141,14 +141,14 @@ plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/me
 # Assosiation study
 
 ```
-plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/merged_all_chips_qc \
-    --pheno formatted_height.txt \
+plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/all_merged_idb \
+    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/formatted_height.txt \
     --linear \
     --pheno-name height \
-    --covar all_covariates.txt \
-    --covar-name chip,SEX,PC1,PC2,PC3 \
+    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/final_covariate.txt \
+    --covar-name SEX,chip,PC1,PC2,PC3 \
     --dummy-coding \
-    --out height_association_by_chip_pc_gender
+    --out height_association
 ```
 "
 # Litterature
