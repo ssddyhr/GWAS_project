@@ -138,17 +138,17 @@ plink --bfile GWA-data_sflt_mflt_hflt --remove wrong_ibd.txt --make-bed --out GW
 plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/merged_all_chips_qc --pca --out merged_all_chips_qc
 ```
 
-# Assosiation study
+# Association study
 
+Had problems with my covariates, so ended up switching to plink2, which worked.
 ```
-plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/all_merged_idb \
-    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/formatted_height.txt \
-    --linear \
+plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/all_merged_idb_filtered \
+    --glm no-x-sex \
+    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/plink_phenotype.txt \
     --pheno-name height \
-    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/final_covariate.txt \
+    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/plink_covariates.txt \
     --covar-name SEX,chip,PC1,PC2,PC3 \
-    --dummy-coding \
-    --out height_association
+    --out height_association_filtered
 ```
 "
 # Litterature
