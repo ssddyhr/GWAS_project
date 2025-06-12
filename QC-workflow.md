@@ -114,11 +114,11 @@ plink2 --bfile merged_new \
 ## Association study
 
 ```
-plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/all_merged_idb_filtered \
+plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/merged_new \
     --glm no-x-sex \
-    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/plink_phenotype.txt \
+    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/plink_phenotype_new.txt \
     --pheno-name height \
-    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/plink_covariates.txt \
+    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/plink_covariates_new.txt \
     --covar-name SEX,chip,PC1,PC2,PC3 \
     --out height_association_filtered
 ```
