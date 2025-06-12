@@ -101,9 +101,9 @@ plink --bfile HTS_iSelect_HD_idb \
       --make-bed \
       --out /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/merged_new
 ```
-switching to plink2
+Had problems with my covariates, so ended up switching to plink2, which worked.
 
-# PCA
+## PCA
 Creating PC's
 ```
 plink2 --bfile merged_new \
@@ -111,9 +111,8 @@ plink2 --bfile merged_new \
        --out merged_new_pca
 ```
 
-# Association study
+## Association study
 
-Had problems with my covariates, so ended up switching to plink2, which worked.
 ```
 plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/all_merged_idb_filtered \
     --glm no-x-sex \
