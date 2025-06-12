@@ -193,7 +193,7 @@ ls -lht
 
 plink --bfile GWA --remove wrong_ibd.txt --make-bed --out GWA
 ```
-# Merging files
+## Merging files
 
 ```
 plink --bfile HTS_iSelect_HD_idb \
