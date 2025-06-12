@@ -122,7 +122,18 @@ plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f
     --covar-name SEX,chip,PC1,PC2,PC3 \
     --out height_association_filtered
 ```
-"
+### Conditioning on the effect of a specific SNP (rs6033553).
+```
+plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/merged_new \
+    --glm no-x-sex \
+    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/plink_phenotype_new.txt \
+    --pheno-name height \
+    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/plink_covariates_new.txt \
+    --covar-name SEX,chip,PC1,PC2,PC3 \
+    --condition rs6033553 \
+    --out conditional_height_association_rs6033553_fixed
+```
+
 # Litterature
 [Plink, v1.9](https://www.cog-genomics.org/plink/1.9/)
 [PMC3066182](https://pmc.ncbi.nlm.nih.gov/articles/PMC3066182/)
