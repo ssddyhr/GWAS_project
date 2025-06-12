@@ -228,31 +228,3 @@ plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f
 [Plink, v1.9](https://www.cog-genomics.org/plink/1.9/)
 [PMC3066182](https://pmc.ncbi.nlm.nih.gov/articles/PMC3066182/)
 [PMC3025522](https://pmc.ncbi.nlm.nih.gov/articles/PMC3025522/)
-
-
-
-# Stratification an PCA's
-
-```
-plink --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project/merged_all_chips_qc --pca --out merged_all_chips
-```
-
-# Association study
-
-Had problems with my covariates, so ended up switching to plink2, which worked.
-```
-plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/all_merged_idb_filtered \
-    --glm no-x-sex \
-    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/plink_phenotype.txt \
-    --pheno-name height \
-    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/plink_covariates.txt \
-    --covar-name SEX,chip,PC1,PC2,PC3 \
-    --out height_association_filtered
-```
-"
-# Litterature
-[Plink, v1.9](https://www.cog-genomics.org/plink/1.9/)
-[PMC3066182](https://pmc.ncbi.nlm.nih.gov/articles/PMC3066182/)
-[PMC3025522](https://pmc.ncbi.nlm.nih.gov/articles/PMC3025522/)
-
-
