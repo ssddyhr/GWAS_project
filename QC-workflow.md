@@ -77,16 +77,16 @@ From that i can calculate the observed heterozygosity rate per individual, and t
 Then i remove the remaining individuals.
 
 ```
-plink --bfile GWA-QC --remove wrong_het_missing_values.txt --make-bed --out GWA-QC
+plink --bfile GWA --remove wrong_het_missing_values.txt --make-bed --out GWA
 
 ```
 
 ### Relatednesss (Identification of duplicated or related individuals)
 
 ```
-plink --bfile GWA-QC --indep-pairwise 500kb 5 0.2 --out GWA-QC
+plink --bfile GWA --indep-pairwise 500kb 5 0.2 --out GWA
 
-plink --bfile GWA --extract GWA-data_sflt_mflt_hflt.prune.in --genome --min 0.185 --out GWA
+plink --bfile GWA --extract GWA.prune.in --genome --min 0.185 --out GWA
 ls -lht
 ```
 ```
