@@ -1,0 +1,171 @@
+---
+title: "PCA_popgen"
+output: html_document
+date: "2025-05-15"
+---
+```{r}
+
+setwd('C:/Users/sebsd/Desktop/GWAS/new_data')
+
+library('ggplot2')
+
+pca_eigenvec <- read.table("merged_new_pca.eigenvec", header = FALSE, stringsAsFactors = FALSE)
+colnames(pca_eigenvec) <- c("FID", "IID", paste0("PC", 1:(ncol(pca_eigenvec) - 2)))
+
+pca_eigenval <- read.table("merged_new_pca.eigenval", header = FALSE, stringsAsFactors = FALSE)
+colnames(pca_eigenval) <- c("Eigenvalue")
+
+# Calculate the percentage of variance explained
+total_variance <- sum(pca_eigenval$Eigenvalue)
+pca_eigenval$Variance_Explained <- (pca_eigenval$Eigenvalue / total_variance) * 100
+
+# Extract the variance explained for PC1 and PC2
+pc1_variance <- round(pca_eigenval$Variance_Explained[1], 2)
+pc2_variance <- round(pca_eigenval$Variance_Explained[2], 2)
+
+# Create the scatter plot with variance explained on the axes
+pca_plot <- ggplot(pca_eigenvec, aes(x = PC1, y = PC2)) +
+  geom_point() +
+  xlab(paste0("Principal Component 1 (", pc1_variance, "% variance explained)")) +
+  ylab(paste0("Principal Component 2 (", pc2_variance, "% variance explained)")) +
+  ggtitle("PCA Plot (PC1 vs PC2)") +
+  theme_bw()
+
+print(pca_plot)
+
+```
+
+```{r}
+library(readr)
+library(dplyr)
+library(data.table)
+
+
+setwd('C:/Users/sebsd/Desktop/GWAS/new_data')
+
+library('ggplot2')
+
+height_df <- read.table("height_adjusted.txt", header = FALSE, sep = " ", col.names = c("FID", "IID", "Height"))
+
+# Your existing PCA data loading (assuming these files exist in your working directory)
+pca_eigenvec <- read.table("merged_new_pca.eigenvec", header = FALSE, stringsAsFactors = FALSE)
+colnames(pca_eigenvec) <- c("FID", "IID", paste0("PC", 1:(ncol(pca_eigenvec) - 2)))
+
+pca_eigenval <- read.table("merged_new_pca.eigenval", header = FALSE, stringsAsFactors = FALSE)
+colnames(pca_eigenval) <- c("Eigenvalue")
+
+# Calculate the percentage of variance explained
+total_variance <- sum(pca_eigenval$Eigenvalue)
+pca_eigenval$Variance_Explained <- (pca_eigenval$Eigenvalue / total_variance) * 100
+
+# Extract the variance explained for PC1 and PC2
+pc1_variance <- round(pca_eigenval$Variance_Explained[1], 2)
+pc2_variance <- round(pca_eigenval$Variance_Explained[2], 2)
+
+# Merge the height data with the PCA eigenvectors data
+# We merge by 'IID' (Individual ID) to associate each individual with their height
+# This is a critical step to ensure the heights are matched correctly to the PCA points
+pca_data_merged <- merge(pca_eigenvec, height_df, by = c("FID", "IID"), all.x = TRUE)
+
+# Create the scatter plot with variance explained on the axes and color by Height
+pca_plot <- ggplot(pca_data_merged, aes(x = PC1, y = PC2, color = Height)) + # 'color = Height' is added here
+  geom_point(size = 2, alpha = 0.8) + # Increased point size and alpha for better visibility
+  # Added a continuous color scale. 'viridis_c' provides a perceptually uniform
+  # colormap that works well for continuous data.
+  scale_color_viridis_c(option = "D", name = "Height (cm)") + # 'option = "D"' for a specific viridis palette, 'name' for legend title
+  xlab(paste0("PC1 (", pc1_variance, "% variance explained)")) +
+  ylab(paste0("PC2 (", pc2_variance, "% variance explained)")) +
+  theme_bw() + # Black and white theme for a clean look
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16), # Center and style title
+    axis.title = element_text(size = 12), # Style axis titles
+    legend.title = element_text(size = 12, face = "bold"), # Style legend title
+    legend.text = element_text(size = 10) # Style legend text
+  )
+
+# Print the plot
+print(pca_plot)
+
+```
+
+```{r}
+# Load necessary R packages
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+# Set the working directory where your data files are located
+# This path should be updated to where your 'height_adjusted.txt', 'all_merged_idb.eigenvec',
+# 'all_merged_idb.eigenval', and 'metadata.txt' files reside.
+setwd('C:/Users/sebsd/Desktop/GWAS')
+
+
+# Load PLINK-generated PCA eigenvectors
+pca_eigenvec <- read.table("all_merged_idb.eigenvec", header = FALSE, stringsAsFactors = FALSE)
+colnames(pca_eigenvec) <- c("FID", "IID", paste0("PC", 1:(ncol(pca_eigenvec) - 2)))
+
+# Load PLINK-generated PCA eigenvalues
+pca_eigenval <- read.table("all_merged_idb.eigenval", header = FALSE, stringsAsFactors = FALSE)
+colnames(pca_eigenval) <- c("Eigenvalue")
+
+# Calculate the percentage of variance explained by each principal component
+total_variance <- sum(pca_eigenval$Eigenvalue)
+pca_eigenval$Variance_Explained <- (pca_eigenval$Eigenvalue / total_variance) * 100
+
+# Extract the variance explained for PC1 and PC2 for plot labels
+pc1_variance <- round(pca_eigenval$Variance_Explained[1], 2)
+pc2_variance <- round(pca_eigenval$Variance_Explained[2], 2)
+
+# Load metadata to get chip information
+metadata <- read_delim("metadata.txt", delim = "\t")
+
+# Prepare chip data from metadata
+metadata_chip <- metadata %>%
+  mutate(user_numeric = as.numeric(user)) %>% # Convert user to numeric if it's IID
+  filter(!is.na(user_numeric)) %>%           # Filter out NAs from conversion
+  mutate(IID = as.character(user_numeric)) %>% # Ensure IID is character
+  select(IID, chip)
+
+# Merge PCA eigenvectors with height data (keeping height for completeness)
+pca_data_merged_height <- merge(pca_eigenvec, height_df, by = c("IID"), all.x = TRUE)
+
+# Merge chip information into the PCA data
+# This is the crucial step to bring 'chip' into the dataframe for plotting
+pca_data_final <- merge(pca_data_merged_height, metadata_chip, by = c("IID"), all.x = TRUE)
+
+# Ensure 'chip' is treated as a factor for discrete coloring
+pca_data_final$chip <- as.factor(pca_data_final$chip)
+
+# Filter out rows where 'chip' is NA before plotting
+pca_data_final_filtered <- pca_data_final %>%
+  filter(!is.na(chip))
+
+# Create the scatter plot of PC1 vs PC2, colored by 'chip'
+pca_plot <- ggplot(pca_data_final_filtered, aes(x = PC1, y = PC2, color = chip)) + # Color points based on 'chip'
+  geom_point(size = 2, alpha = 0.8) + # Set point size to 2 and transparency
+  # Use a discrete color scale for categorical 'chip' variable
+  scale_color_discrete(name = "Genotyping Chip") + # Set legend title for chip
+  # Set x-axis label with variance explained by PC1
+  xlab(paste0("PC1 (", pc1_variance, "% variance explained)")) +
+  # Set y-axis label with variance explained by PC2
+  ylab(paste0("PC2 (", pc2_variance, "% variance explained)")) +
+  # Set the main title of the plot
+  theme_bw() + # Use a black and white theme for a clean appearance
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16), # Center and style the plot title
+    axis.title = element_text(size = 12), # Style the axis titles
+    legend.title = element_text(size = 12, face = "bold"), # Style the legend title
+    legend.text = element_text(size = 10) # Style the legend text
+  )
+
+# Print the plot to the R graphics device
+print(pca_plot)
+
+# Optional: Save the plot to a file
+# ggsave("pca_plot_by_chip.png", plot = pca_plot, width = 10, height = 8, units = "in", dpi = 300)
+
+cat("\nPCA plot colored by genotyping chip has been generated. This plot is useful for visualizing if individuals cluster by the chip they were genotyped on, which can indicate batch effects or population substructure.\n")
+
+
+```
+
