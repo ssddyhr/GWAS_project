@@ -12,30 +12,10 @@ Using the command.
 plink --bfile OmniExpress_plus --keep keep.txt --pheno height.txt --make-bed --out OmniExpress_plus_height
 ```
 
-## Sex check
-
-Imputing sex did not work, as it did not infer any problematic individuals. It's best to be more conservative, so remove individuals with problematic sex instead.
-
-```
-plink --bfile OmniExpress_plus_height --impute-sex --make-bed --out OmniExpress_plus_imputed
-```
-
-First i do a sexcheck.
-```
-plink --bfile OmniExpress_subset  --check-sex 0.2 0.8 --out OmniExpress_subset
-```
-Then i filter and remove. 
-```
-grep -v "OK" HTS_iSelect_HD_sex.sexcheck > HTS_wrongsex.txt
-```
-```
-plink --bfile nochip_subset --remove nochib_wrongsex.txt --make-bed --out nochip_sexflt
-```
-
 ## Pr SNP QC
 
 ### Genotyping efficiency / call rate (missingness)
-PLINK removes all SNPs where more than 5% of individuals are missing a genotype for that SNP. Because the missingness was inflated (0.5 ‘ish), because we had a combined b-file to begin with, and when i tried to filter by missing individuals, it was way too high and would remove all the individuals. So this way I don't remove too many individuals. Even though the literature says to do it by individual first, and the remove individual SNP’s. Now i can use the --mind flag to remove by individual. I do this though the flag --geno. The subset with no assigned chip, removed many of the SNPs, which makes sense, since the might in reality be from different SNPs. so the best option might just be to remove them.
+PLINK removes all SNPs where more than 5% of individuals are missing a genotype for that SNP. Because the missingness was inflated (0.5 ‘ish), because we had a combined b-file to begin with, and when i tried to filter by missing individuals, it was way too high and would remove all the individuals. So this way I don't remove too many individuals. Even though the literature says to do it by individual first, and the remove individual SNP’s. However Shannon says you can do it either way, so i ended up doing SNP first, because of the high Missingness. Now i can use the --mind flag to remove by individual. I do this though the flag --geno. The subset with no assigned chip, removed many of the SNPs, which makes sense, since the might in reality be from different SNPs. so the best option might just be to remove them.
 
 ```
 plink --bfile HTS_iSelect_HD_sexflt --geno 0.05 --make-bed --out HTS_iSelect_HD_sexflt_geno
@@ -57,6 +37,26 @@ Or in one command.
 plink --bfile OmniExpress_sexflt --geno 0.05 --hwe 0.00001 --maf 0.01 --make-bed --out OmniExpress_sexflt
 ```
 ## Per Individual QC
+
+### Sex check
+
+Imputing sex does nothing to infer any problematic individuals. It's best to be more conservative, so remove individuals with problematic sex instead.
+
+```
+plink --bfile OmniExpress_plus_height --impute-sex --make-bed --out OmniExpress_plus_imputed
+```
+
+First i do a sexcheck.
+```
+plink --bfile OmniExpress_subset  --check-sex 0.2 0.8 --out OmniExpress_subset
+```
+Then i filter and remove. 
+```
+grep -v "OK" HTS_iSelect_HD_sex.sexcheck > HTS_wrongsex.txt
+```
+```
+plink --bfile nochip_subset --remove nochib_wrongsex.txt --make-bed --out nochip_sexflt
+```
 
 ### Sample call rate (missingness)
 
@@ -94,14 +94,14 @@ ls -lht
 plink --bfile GWA --remove wrong_ibd.txt --make-bed --out GWA
 ```
 ## Merging files
-
+I ended up not merging the ones without a chip. Further reasoning is in my report.
 ```
 plink --bfile HTS_iSelect_HD_idb \
       --merge-list mergelist.txt \
       --make-bed \
       --out /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/merged_new
 ```
-Had problems with my covariates, so ended up switching to plink2, which worked.
+Had problems with my covariates, so ended up switching to plink2, which worked. I ended up switching back however, as a found a solution. It was due to the dos2unix file.txt.
 
 ## PCA
 Creating PC's
@@ -114,15 +114,6 @@ plink2 --bfile merged_new \
 ## Association study
 
 ```
-plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/merged_new \
-    --glm no-x-sex \
-    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/plink_phenotype_new.txt \
-    --pheno-name height \
-    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/plink_covariates_new.txt \
-    --covar-name SEX,chip,PC1,PC2,PC3 \
-    --out height_association_filtered
-```
-```
 plink --bfile HTS_ILL_OMNI_PLUS_merge \
       --pheno plink_phenotype_new.txt \
       --covar plink_covariates_new.txt \
@@ -133,16 +124,7 @@ plink --bfile HTS_ILL_OMNI_PLUS_merge \
 
 ```
 ### Conditioning on the effect of a specific SNP (rs6033553).
-```
-plink2 --bfile /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/merged_new \
-    --glm no-x-sex \
-    --pheno /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/plink_phenotype_new.txt \
-    --pheno-name height \
-    --covar /home/animaldyhr/populationgenomics/students/animaldyhr/project_f/newdata/plink_covariates_new.txt \
-    --covar-name SEX,chip,PC1,PC2,PC3 \
-    --condition rs6033553 \
-    --out conditional_height_association_rs6033553_fixed
-```
+I ended up not using this in my report. As i deemed it irrelevant for the study.
 ```
 plink --bfile HTS_ILL_OMNI_PLUS_merge \
       --pheno plink_phenotype_new.txt \
