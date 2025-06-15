@@ -2,7 +2,8 @@
 Exam project, by Sebastian Dyhr
 
 ## Overview
-QC-workflow: Plink code snippets. 
+- QC-workflow
+  - Plink code snippets. 
 
 - Chips
   - I've split the my b-file according to chip.
